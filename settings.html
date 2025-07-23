@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>含稅拆分計算器</title>
+    <title>設定</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- Topbar -->
     <header class="topbar">
         <nav>
             <a href="index.html">含稅計算</a>
@@ -18,20 +17,10 @@
         </nav>
     </header>
 
-    <!-- 主內容 -->
     <main>
-        <h2>含稅拆分計算器</h2>
-        <label for="total">含稅總價 (NT$)：</label>
-        <input type="number" id="total" value="300" min="0">
-        <label for="entertainmentTax">娛樂稅率 (%)：</label>
-        <input type="number" id="entertainmentTax" value="10" min="0">
-        <label for="vatTax">營業稅率 (%)：</label>
-        <input type="number" id="vatTax" value="5" min="0">
-        <button onclick="calculate()">計算</button>
-        <div class="result" id="result">請輸入數值並點擊計算。</div>
+        <h2>設定</h2>
+        <p>在這裡可以設定預設稅率、主題顏色等（之後可擴充）。</p>
     </main>
-
-    <script src="script.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')
