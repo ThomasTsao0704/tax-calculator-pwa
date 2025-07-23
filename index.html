@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>含稅拆分計算器</title>
+
+    <!-- 強制 HTTPS（在 GitHub Pages 上會自動啟用，但保險起見） -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <!-- PWA 與主題顏色 -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+
+    <!-- SEO Metadata -->
+    <meta name="description" content="免費的線上含稅拆分計算器，快速計算未稅票價、娛樂稅與營業稅，支援手機安裝與離線使用。">
+    <meta name="keywords" content="稅務計算器, 娛樂稅, 營業稅, 含稅票價, PWA, 手機App, 計算工具">
+    <meta name="author" content="Thomas">
+
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="含稅拆分計算器">
+    <meta property="og:description" content="快速計算未稅票價、娛樂稅與營業稅，支援離線與手機安裝的免費工具。">
+    <meta property="og:image" content="icon-512.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://你的帳號.github.io/tax-calculator-pwa/">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            button {
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            input {
+                font-size: 15px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h2>含稅拆分計算器</h2>
+    <label for="total">含稅總價 (NT$)：</label>
+    <input type="number" id="total" value="300" min="0">
+    <label for="entertainmentTax">娛樂稅率 (%)：</label>
+    <input type="number" id="entertainmentTax" value="10" min="0">
+    <label for="vatTax">營業稅率 (%)：</label>
+    <input type="number" id="vatTax" value="5" min="0">
+    <button onclick="calculate()">計算</button>
+    <div class="result" id="result">請輸入數值並點擊計算。</div>
+
+    <script>
+        function calculate() {
+            const total = parseFloat(document.getElementById('total').value);
+            const rE = parseFloat(document.getElementById('entertainmentTax').value) / 100;
+            const rV = parseFloat(document.getElementById('vatTax').value) / 100;
+
+            if (isNaN(total) || total <= 0) {
+                document.getElementById('result').innerHTML = "請輸入有效的票價。";
+                return;
+            }
+
+            const net = total / (1 + rE + rV);
+            const entertainment = net * rE;
+            const vat = net * rV;
+
+            document.getElementById('result').innerHTML = `
+        <strong>計算結果：</strong><br>
+        未稅票價：NT$ ${net.toFixed(2)}<br>
+        娛樂稅 (${(rE * 100).toFixed(1)}%)：NT$ ${entertainment.toFixed(2)}<br>
+        營業稅 (${(rV * 100).toFixed(1)}%)：NT$ ${vat.toFixed(2)}<br>
+        <hr>
+        總額：NT$ ${total.toFixed(2)}
+      `;
+        }
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .catch(err => console.log('Service Worker 註冊失敗:', err));
+        }
+    </script>
+</body>
+
+</html>
