@@ -1,0 +1,50 @@
+.sidebar {
+    float: left;
+    text-transform: capitalize;
+}
+
+.sidebar h3 {
+    margin-bottom: 0px;
+}
+
+.sidebar ul {
+    margin-top: 3px;
+    margin-bottom: 0;
+}
+
+.sidebar .sortoptions {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.product {
+    max-width: 110px;
+    height: 70px;
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+    background-color: #eee;
+}
+
+/* 主要內容區域 (右側顯示商品) */
+[flex="50"] {
+    display: flex;
+    flex-wrap: wrap;      /* 自動換行 */
+    align-content: flex-start;
+    gap: 10px;            /* 每張卡片間距 */
+    max-height: 80vh;     /* 限制高度 */
+    overflow-y: auto;     /* 超過高度時可以捲動 */
+    padding: 10px;
+}
+
+/* 調整每個卡片大小 */
+.product {
+    flex: 0 0 120px;       /* 每張卡片固定寬度 */
+    height: auto;          /* 自適應高度 */
+    min-height: 80px;
+    margin: 5px;
+    padding: 10px;
+    text-align: center;
+    background-color: #eee;
+    border-radius: 5px;
+}
