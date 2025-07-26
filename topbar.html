@@ -1,0 +1,19 @@
+<header class="topbar">
+    <div class="nav-container">
+        <div class="logo">我的網站</div>
+        <button class="menu-toggle" aria-label="切換選單">&#9776;</button>
+        <nav class="nav-links">
+            <a href="index.html">首頁</a>
+            <a href="page1.html">page1</a>
+            <a href="page2.html">page2</a>
+            <a href="page3.html">page3</a>
+            <a href="page4.html">page4</a>
+        </nav>
+    </div>
+</header>
+<script>
+    // 漢堡選單切換
+    document.querySelector(".menu-toggle").addEventListener("click", () => {
+        document.querySelector(".nav-links").classList.toggle("active");
+    });
+</script>
